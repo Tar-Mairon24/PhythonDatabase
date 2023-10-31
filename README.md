@@ -1,2 +1,2 @@
 # PhythonDatabase
-Final proyect of Data Bases Workshop, connection between a database and a ui in python
+Final proyect of Taller de Base de Datos, connection between a database and a ui in python
