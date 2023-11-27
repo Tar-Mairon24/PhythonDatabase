@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/PhythonDatabase.iml" filepath="$PROJECT_DIR$/.idea/PhythonDatabase.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/PythonDatabase.iml" filepath="$PROJECT_DIR$/.idea/PythonDatabase.iml" />
     </modules>
   </component>
 </project>
