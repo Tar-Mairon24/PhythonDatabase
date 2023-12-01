@@ -8,5 +8,10 @@ try:
         encoding='UTF-8'
     )
     print(connection.version)
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM usuarios")
+    rows = cursor.fetchall()
+    for row in rows:
+        print(row)
 except Exception as ex:
     print(ex)
