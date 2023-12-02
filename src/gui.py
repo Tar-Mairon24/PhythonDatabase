@@ -3,6 +3,7 @@ from tkinter import ttk, messagebox, scrolledtext
 from time import sleep
 from datetime import datetime, timedelta
 
+
 class ComponentesVentana(tk.Tk):
     def __init__(self):
         super().__init__()
@@ -39,7 +40,6 @@ class ComponentesVentana(tk.Tk):
         entrada5 = ttk.Entry(tabulador, width=30)
         entrada5.grid(row=4, column=1, padx=5, pady=5)
 
-
         # botón para registrar
         def enviar():
             messagebox.showinfo('Mensaje', f'Libro registrado correctamente.')
@@ -48,7 +48,6 @@ class ComponentesVentana(tk.Tk):
         boton1.grid(row=5, column=0, columnspan=2)
 
     def tabulador2(self, tabulador):
-
         etiqueta1 = ttk.Label(tabulador, text='ISBN:')
         etiqueta1.grid(row=0, column=0, sticky=tk.E)
         entrada1 = ttk.Entry(tabulador, width=30)
@@ -85,12 +84,10 @@ class ComponentesVentana(tk.Tk):
         boton_mostrar.grid(row=3, column=1)
 
     def tabulador3(self, tabulador):
-
         etiqueta1 = ttk.Label(tabulador, text='ISBN:')
         etiqueta1.grid(row=0, column=0, sticky=tk.E)
         entrada1 = ttk.Entry(tabulador, width=30)
         entrada1.grid(row=0, column=1, padx=5, pady=5)
-
 
         # botón para mostrar la fecha seleccionada
         def mostrar_valor():
@@ -98,7 +95,6 @@ class ComponentesVentana(tk.Tk):
 
         boton_mostrar = ttk.Button(tabulador, text='OK', command=mostrar_valor)
         boton_mostrar.grid(row=3, column=1)
-
 
     def _crear_tabs(self):
         # Creamos un tab control, para ello usamos la clase Notebook
@@ -121,7 +117,6 @@ class ComponentesVentana(tk.Tk):
         tabulador3 = ttk.LabelFrame(control_tabulador, text='Busqueda de libro')
         control_tabulador.add(tabulador3, text='Busqueda de libro')
         self.tabulador3(tabulador3)
-
 
 
 if __name__ == '__main__':

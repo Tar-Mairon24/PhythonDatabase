@@ -1,6 +1,9 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 
+from src.login_funcion import Login
+from src.gui import ComponentesVentana
+
 
 class VentanaLogin:
     def __init__(self, master):
@@ -38,8 +41,18 @@ class VentanaLogin:
         self.login_boton.grid(row=3, column=0, columnspan=2)
 
     def login(self):
-        messagebox.showinfo('Datos Login',
-                            f'Usuario: {self.usuario_entrada.get()}, Password: {self.password_entrada.get()}')
+        usuario = self.usuario_entrada.get()
+        contra = self.password_entrada.get()
+        if usuario == "" or contra == "":
+            messagebox.showinfo("Error", "No se insertaron datos")
+        else:
+            login_conexion = Login(usuario, contra)
+            login_conexion.conexion_base()
+            if login_conexion.verificar_usuario():
+                gui = ComponentesVentana()
+                gui.mainloop()
+            else:
+                messagebox.showinfo("Error", "Usuario o contraseña invalidos")
 
 
 if __name__ == "__main__":
