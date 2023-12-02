@@ -6,7 +6,7 @@ ventana = tk.Tk()
 ventana.geometry('300x130')
 ventana.title('Login')
 
-ventana.resizable(False, False)
+ventana.resizable(0,0)
 
 # configuración del grid
 ventana.columnconfigure(0, weight=1)
@@ -24,12 +24,10 @@ password_etiqueta.grid(row=1, column=0, sticky=tk.E, padx=5, pady=5)
 password_entrada = ttk.Entry(ventana, show='*')
 password_entrada.grid(row=1, column=1, sticky=tk.W, padx=5, pady=5)
 
-
 # boton Login
 def login():
     messagebox.showinfo('Datos Login',
                         f'usuario: {usuario_entrada.get()}, Password: {password_entrada.get()}')
-
 
 login_boton = ttk.Button(ventana, text='Login', command=login)
 login_boton.grid(row=3, column=0, columnspan=2)
