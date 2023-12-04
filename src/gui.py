@@ -1,6 +1,5 @@
 import tkinter as tk
-from tkinter import ttk, messagebox, scrolledtext
-from time import sleep
+from tkinter import ttk, messagebox
 from datetime import datetime, timedelta
 
 
@@ -8,7 +7,7 @@ class ComponentesVentana(tk.Tk):
     def __init__(self):
         super().__init__()
         self.geometry('350x300+200+200')
-        self.title('Componentes')
+        self.title('Libreria')
 
         self._crear_tabs()
 
@@ -40,50 +39,36 @@ class ComponentesVentana(tk.Tk):
         entrada5 = ttk.Entry(tabulador, width=30)
         entrada5.grid(row=4, column=1, padx=5, pady=5)
 
+        etiqueta6 = ttk.Label(tabulador, text='Fecha de inicio:')
+        etiqueta6.grid(row=5, column=0, sticky=tk.E)
+        fecha_actual = datetime.now()
+        fecha_ini = [fecha_actual - timedelta(days=x) for x in range(30)]
+        fecha_ini_str = [fecha.strftime("%Y-%m-%d") for fecha in fecha_ini]
+
+        etiqueta7 = ttk.Label(tabulador, text='Fecha de fin:')
+        etiqueta7.grid(row=6, column=0, sticky=tk.E)
+        fecha_actual = datetime.now()
+        fecha_fin = [fecha_actual - timedelta(days=x) for x in range(30)]
+        fecha_fin_str = [fecha.strftime("%Y-%m-%d") for fecha in fecha_fin]
+
+        # Combobox con las fechas
+        combobox = ttk.Combobox(tabulador, width=30, values=fecha_ini_str)
+        combobox.grid(row=5, column=1, padx=5, pady=5)
+
+        combobox = ttk.Combobox(tabulador, width=30, values=fecha_fin_str)
+        combobox.grid(row=6, column=1, padx=5, pady=5)
+
+        # Seleccionamos la primera fecha pasada como predeterminada
+        combobox.current(0)
+
         # botón para registrar
         def enviar():
             messagebox.showinfo('Mensaje', f'Libro registrado correctamente.')
 
         boton1 = ttk.Button(tabulador, text='OK', command=enviar)
-        boton1.grid(row=5, column=0, columnspan=2)
+        boton1.grid(row=7, column=0, columnspan=2)
 
     def tabulador2(self, tabulador):
-        etiqueta1 = ttk.Label(tabulador, text='ISBN:')
-        etiqueta1.grid(row=0, column=0, sticky=tk.E)
-        entrada1 = ttk.Entry(tabulador, width=30)
-        entrada1.grid(row=0, column=1, padx=5, pady=5)
-
-        # lista de fechas datetime
-        etiqueta2 = ttk.Label(tabulador, text='Fecha de inicio:')
-        etiqueta2.grid(row=1, column=0, sticky=tk.E)
-        fecha_actual = datetime.now()
-        fecha_Ini = [fecha_actual - timedelta(days=x) for x in range(10)]
-        fecha_Ini_str = [fecha.strftime("%Y-%m-%d") for fecha in fecha_Ini]
-
-        etiqueta3 = ttk.Label(tabulador, text='Fecha de fin:')
-        etiqueta3.grid(row=2, column=0, sticky=tk.E)
-        fecha_actual = datetime.now()
-        fecha_Fin = [fecha_actual - timedelta(days=x) for x in range(10)]
-        fecha_Fin_str = [fecha.strftime("%Y-%m-%d") for fecha in fecha_Fin]
-
-        # Combobox con las fechas
-        combobox = ttk.Combobox(tabulador, width=30, values=fecha_Ini_str)
-        combobox.grid(row=1, column=1, padx=5, pady=5)
-
-        combobox = ttk.Combobox(tabulador, width=30, values=fecha_Fin_str)
-        combobox.grid(row=2, column=1, padx=5, pady=5)
-
-        # Seleccionamos la primera fecha pasada como predeterminada
-        combobox.current(0)
-
-        # botón para mostrar la fecha seleccionada
-        def mostrar_valor():
-            messagebox.showinfo('Memo Joto', 'Registro completado')
-
-        boton_mostrar = ttk.Button(tabulador, text='OK', command=mostrar_valor)
-        boton_mostrar.grid(row=3, column=1)
-
-    def tabulador3(self, tabulador):
         etiqueta1 = ttk.Label(tabulador, text='ISBN:')
         etiqueta1.grid(row=0, column=0, sticky=tk.E)
         entrada1 = ttk.Entry(tabulador, width=30)
@@ -108,15 +93,9 @@ class ComponentesVentana(tk.Tk):
         # Creamos los componentes del tabulador1
         self.tabulador1(tabulador1)
 
-        # Creamos un segundo tabulador
-        tabulador2 = ttk.LabelFrame(control_tabulador, text='Contenido')
-        control_tabulador.add(tabulador2, text='Registro de lectura')
-        # Creamos los componentes del segundo tabulador
+        tabulador2 = ttk.LabelFrame(control_tabulador, text='Busqueda de libro')
+        control_tabulador.add(tabulador2, text='Busqueda de libro')
         self.tabulador2(tabulador2)
-
-        tabulador3 = ttk.LabelFrame(control_tabulador, text='Busqueda de libro')
-        control_tabulador.add(tabulador3, text='Busqueda de libro')
-        self.tabulador3(tabulador3)
 
 
 if __name__ == '__main__':
