@@ -40,5 +40,3 @@ class Login:
                 return False
             else:
                 return True
-
-

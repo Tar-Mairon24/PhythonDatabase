@@ -53,6 +53,7 @@ class VentanaLogin:
                 gui.mainloop()
             else:
                 messagebox.showinfo("Error", "Usuario o contraseña invalidos")
+            login_conexion.cerrar_conexion()
 
 
 if __name__ == "__main__":
