@@ -1,8 +1,9 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
-
-from src.login_funcion import Login
-from src.gui import ComponentesVentana
+import sys
+sys.path.insert(0,'../src')
+from login_funcion import Login
+from gui import ComponentesVentana
 
 
 class VentanaLogin:
