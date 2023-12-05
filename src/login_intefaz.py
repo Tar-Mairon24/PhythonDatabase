@@ -1,8 +1,10 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
+import sys 
+sys.path.insert(0,'../src')
+from gui import ComponentesVentana
+from login_funcion import Login
 
-from src.login_funcion import Login
-from src.gui import ComponentesVentana
 
 
 class VentanaLogin:
@@ -60,3 +62,5 @@ if __name__ == "__main__":
     root = tk.Tk()
     app = VentanaLogin(root)
     root.mainloop()
+
+

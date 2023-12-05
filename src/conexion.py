@@ -11,13 +11,16 @@ print(connection.version)
 
 cursor = connection.cursor()
 #Consulta tabla en bd 
+isbn = input("Dame el isbn del libro a buscar")
 SQL = '''
 SELECT l.isbn, l.titulo, e.nombre, l.anio, a.nombre
 FROM libros l, editoriales e, autores a
 WHERE a.id_autor = l.id_autor and 
-e.id_editorial = l.id_editorial
+e.id_editorial = l.id_editorial and
+l.isbn = :isbn
 '''
-cursor.execute(SQL)
+valores_select = {'isbn':isbn}
+cursor.execute(SQL,valores_select)
 records = cursor.fetchall()
 for rows in records:
     #print(x)

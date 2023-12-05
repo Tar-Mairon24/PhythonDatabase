@@ -96,9 +96,20 @@ class ComponentesVentana(tk.Tk):
         tabulador2 = ttk.LabelFrame(control_tabulador, text='Busqueda de libro')
         control_tabulador.add(tabulador2, text='Busqueda de libro')
         self.tabulador2(tabulador2)
+    
+    def Agregar():
+         entrada1 = ttk.Entry(entrada1.get())
+         entrada2 = ttk.Entry(entrada2.get())
+         entrada3 = ttk.Entry(entrada2.get())
+         entrada4 = ttk.Entry(entrada2.get())
+         entrada5 = ttk.Entry(entrada2.get())
+
+
+
 
 
 if __name__ == '__main__':
     # Creamos un objeto de nuestra clase
     componentes_ventana = ComponentesVentana()
     componentes_ventana.mainloop()
+
