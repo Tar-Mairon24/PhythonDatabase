@@ -122,7 +122,7 @@ class ComponentesVentana(tk.Tk):
         control_tabulador.add(tabulador3, text='Busqueda de libro')
         self.tabulador3(tabulador3)
         
-    def Agregar():
+    def Agregar(self):
             entrada1 = ttk.Entry(entrada1.get())
             entrada2 = ttk.Entry(entrada2.get())
             entrada3 = ttk.Entry(entrada2.get())
