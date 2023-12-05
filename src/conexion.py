@@ -12,6 +12,13 @@ class conexion:
         error, = e.args
         print("Conexion con base de datos erronea:", error)
 
+    def cerrar_conexion(self):
+        if self.conexion:
+            self.conexion.close()
+            print("Conexion cerrada")
+        else:
+            print("ERR: conexion a la base de datos inexistente")
+
     cursor = connection.cursor()
 
     #Consulta tabla en bd 
