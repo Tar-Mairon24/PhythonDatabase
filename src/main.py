@@ -14,8 +14,10 @@ def main():
         nombre_editorial = input("Insertar nombre editorial ")
         anio_libro = input("Insertar año ")
         nombre_autor = input("Insertar nombre autor ")
+        fecha_ini = input("Insertar fecha inicial ") 
+        fecha_fin = input("Insertar fecha final ")
 
-        conn.insertar_libro(isbn,titulo,nombre_editorial,anio_libro,nombre_autor)
+        conn.insertar_libro(isbn,titulo,nombre_editorial,anio_libro,nombre_autor,fecha_ini,fecha_fin)
 
         #Ejecutar actualizar
         nombre_libro = input("titulo a actualizar ")

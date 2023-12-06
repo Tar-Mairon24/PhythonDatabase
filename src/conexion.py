@@ -59,9 +59,12 @@ class Conexion:
     titulo = input("Insertar titulo ")
     nombre_editorial = input("Insertar nombre editorial ")
     anio_libro = input("Insertar año ")
-    nombre_autor = input("Insertar nombre autor ") """
+    nombre_autor = input("Insertar nombre autor ")
+    fecha_ini = input("Insertar fecha inicial ") 
+    fecha_fin = input("Insertar fecha final ")
+       """
 
-    def insertar_libro(self,isbn,titulo,nombre_editorial,anio_libro,nombre_autor):
+    def insertar_libro(self,isbn,titulo,nombre_editorial,anio_libro,nombre_autor,fecha_ini,fecha_fin):
         # Obtener el próximo valor de la secuencia para el ID_autor
         self.cursor.execute("SELECT MAX(id_autor) + 1 FROM autores")
         id_autor = self.cursor.fetchone()[0]
@@ -98,9 +101,9 @@ class Conexion:
 
             #Insertar libro
             insert_libros = '''
-            insert into libros (ISBN,ID_EDITORIAL,ID_AUTOR,ID_USER,TITULO,ANIO) VALUES(:isbn,:id_editorial,:id_autor,1,:titulo,:anio)
+            insert into libros (ISBN,ID_EDITORIAL,ID_AUTOR,ID_USER,TITULO,ANIO,FECHA_INI,FECHA_FIN) VALUES(:isbn,:id_editorial,:id_autor,1,:titulo,:anio,:fecha_ini,:fecha_fin)
             '''
-            valores_libros = {'isbn':isbn,'id_editorial':id_editorial,'id_autor':id_autor,'titulo':titulo,'anio':anio_libro}
+            valores_libros = {'isbn':isbn,'id_editorial':id_editorial,'id_autor':id_autor,'titulo':titulo,'anio':anio_libro, 'fecha_ini':fecha_ini,'fecha_fin': fecha_fin}
             self.cursor.execute(insert_libros,valores_libros)
             self.connection.commit()
 
