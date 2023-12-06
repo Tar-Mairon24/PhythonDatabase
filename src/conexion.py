@@ -1,35 +1,31 @@
 import cx_Oracle
 
 class Conexion:
+    
     def __init__(self):
-        self.connection = None
+        self.conn = None
         self.cursor = None
 
     def conexion_base(self):
         try:
-            self.connection = cx_Oracle.connect(
+            self.conn = cx_Oracle.connect(
                 user = 'proyectotaller',
                 password = 'proyecto',
                 dsn = 'localhost:1521/XE',
                 encoding = 'UTF-8'
             )
-            print(self.connection.version)
-            self.cursor = self.connection.cursor()
+            print(self.conn.version)
+            self.cursor = self.conn.cursor()
         except cx_Oracle.DatabaseError as e:
             error, = e.args
             print("Conexion con base de datos erronea:", error)
 
     def cerrar_conexion(self):
-        if self.connection:
-            self.connection.close()
+        if self.conn:
+            self.conn.close()
             print("Conexion cerrada")
         else:
             print("ERROR: conexion a la base de datos inexistente")
-
-   # cursor = connection.cursor()
-
-    #Consulta tabla en bd 
-    #isbn = input("Dame el isbn del libro a buscar")
 
     def buscar_libro_por_isbn(self,isbn):
         SQL = '''
@@ -51,18 +47,7 @@ class Conexion:
             nombre_aut = rows[4]
         print(str(isbn) +' '+ titulo +' '+ nombre_ed+' '+str(anio_l)+' '+nombre_aut)
 
-    #Insertar registros en BD
-
     #Insertar libro
-
-    """ isbn = input("Insertar isbn ")
-    titulo = input("Insertar titulo ")
-    nombre_editorial = input("Insertar nombre editorial ")
-    anio_libro = input("Insertar año ")
-    nombre_autor = input("Insertar nombre autor ")
-    fecha_ini = input("Insertar fecha inicial ") 
-    fecha_fin = input("Insertar fecha final ")
-       """
 
     def insertar_libro(self,isbn,titulo,nombre_editorial,anio_libro,nombre_autor,fecha_ini,fecha_fin):
         # Obtener el próximo valor de la secuencia para el ID_autor
@@ -105,12 +90,8 @@ class Conexion:
             '''
             valores_libros = {'isbn':isbn,'id_editorial':id_editorial,'id_autor':id_autor,'titulo':titulo,'anio':anio_libro, 'fecha_ini':fecha_ini,'fecha_fin': fecha_fin}
             self.cursor.execute(insert_libros,valores_libros)
-            self.connection.commit()
-
-
-    """ nombre_libro = input("titulo a actualizar ")
-    buscar_isbn = input("buscar isbn ") """
-    
+            self.conn.commit()
+ 
     def actualizar_titulo(self,nombre_libro,buscar_isbn):
         #Actualizar registros en la BD
         update_libro = '''
@@ -119,7 +100,7 @@ class Conexion:
         valores_update = {'nombre_libro':nombre_libro,'buscar_isbn':buscar_isbn}
         try:
             self.cursor.execute(update_libro,valores_update)
-            self.connection.commit()
+            self.conn.commit()
             print("Actualizacion")
         except cx_Oracle.DatabaseError as e:
             error, = e.args
@@ -133,7 +114,7 @@ class Conexion:
         valores_delete = {'eliminar_libro':eliminar_libro}
         try:
             self.cursor.execute(delete_libro,valores_delete)
-            self.connection.commit()
+            self.conn.commit()
         except cx_Oracle.DatabaseError as e:
             error, = e.args
             print("Error de base de datos:", error)
