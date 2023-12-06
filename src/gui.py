@@ -141,12 +141,12 @@ class ComponentesVentana(tk.Tk):
         control_tabulador.add(tabulador4, text='Borrar')
         self.tabulador4(tabulador4)
 
-    def Agregar(self):
+    """ def Agregar(self):
             entrada1 = ttk.Entry(entrada1.get())
             entrada2 = ttk.Entry(entrada2.get())
             entrada3 = ttk.Entry(entrada2.get())
             entrada4 = ttk.Entry(entrada2.get())
-            entrada5 = ttk.Entry(entrada2.get())
+            entrada5 = ttk.Entry(entrada2.get()) """
 
 if __name__ == '__main__':
     # Creamos un objeto de nuestra clase
