@@ -10,10 +10,10 @@ class Login:
     def conexion_base(self):
         try:
             self.conexion = cx_Oracle.connect(
-                user = 'proyectotaller',
-                password = 'proyecto',
-                dsn = 'localhost:1521/XE',
-                encoding = 'UTF-8'
+                user='proyectotbd',
+                password='proyecto',
+                dsn='localhost:1521/XE',
+                encoding='UTF-8'
             )
             print(self.conexion.version)
             return self.conexion
