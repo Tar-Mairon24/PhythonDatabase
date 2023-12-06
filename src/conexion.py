@@ -8,7 +8,7 @@ class Conexion:
     def conexion_base(self):
         try:
             self.connection = cx_Oracle.connect(
-                user = 'proyectotaller',
+                user = 'proyectotbd',
                 password = 'proyecto',
                 dsn = 'localhost:1521/XE',
                 encoding = 'UTF-8'
