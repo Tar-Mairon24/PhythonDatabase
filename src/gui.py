@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 from datetime import datetime, timedelta
+from conexion import Conexion
 
 
 class ComponentesVentana(tk.Tk):
@@ -8,13 +9,15 @@ class ComponentesVentana(tk.Tk):
         super().__init__()
         self.geometry('450x400+100+100')
         self.title('Libreria')
-
+        self.conn = Conexion()
+        self.conn.conexion_base()
         self._crear_tabs()
 
     def tabulador1(self, tabulador):
         # etiqueta y un componente de entrada
 
         etiqueta1 = ttk.Label(tabulador, text='ISBN:')
+        #self.isbn = 
         etiqueta1.grid(row=0, column=0, sticky=tk.E)
         entrada1 = ttk.Entry(tabulador, width=30)
         entrada1.grid(row=0, column=1, padx=5, pady=5)
@@ -39,38 +42,32 @@ class ComponentesVentana(tk.Tk):
         entrada5 = ttk.Entry(tabulador, width=30)
         entrada5.grid(row=4, column=1, padx=5, pady=5)
 
-        etiqueta6 = ttk.Label(tabulador, text='Fecha de inicio:')
+        etiqueta6 = ttk.Label(tabulador, text='Fecha de inicio(DD/MM/AA): ')
         etiqueta6.grid(row=5, column=0, sticky=tk.E)
         entrada6 = ttk.Entry(tabulador, width=30)
         entrada6.grid(row=5, column=1, padx=5, pady=5)
-        #fecha_actual = datetime.now()
-        #fecha_ini = [fecha_actual - timedelta(days=x) for x in range(30)]
-        #fecha_ini_str = [fecha.strftime("%Y-%m-%d") for fecha in fecha_ini]
 
-        etiqueta7 = ttk.Label(tabulador, text='Fecha de fin:')
+        etiqueta7 = ttk.Label(tabulador, text='Fecha de fin(DD/MM/AA): ')
         etiqueta7.grid(row=6, column=0, sticky=tk.E)
         entrada7 = ttk.Entry(tabulador, width=30)
         entrada7.grid(row=6, column=1, padx=5, pady=5)
 
-        #fecha_actual = datetime.now()
-        #fecha_fin = [fecha_actual - timedelta(days=x) for x in range(30)]
-        #fecha_fin_str = [fecha.strftime("%Y-%m-%d") for fecha in fecha_fin]
-
-        # Combobox con las fechas
-        #combobox = ttk.Combobox(tabulador, width=30, values=fecha_ini_str)
-        #combobox.grid(row=5, column=1, padx=5, pady=5)
-
-        #combobox = ttk.Combobox(tabulador, width=30, values=fecha_fin_str)
-        #combobox.grid(row=6, column=1, padx=5, pady=5)
-
-        # Seleccionamos la primera fecha pasada como predeterminada
-        #combobox.current(0)
 
         # botón para registrar
         def enviar():
+            isbn = entrada1.get()
+            titulo = entrada2.get()
+            nombre_editorial = entrada3.get()
+            anio_libro = entrada4.get()
+            nombre_autor = entrada5.get()
+            fecha_ini = entrada6.get()
+            fecha_fin = entrada7.get()
+
+            self.conn.insertar_libro(isbn,titulo,nombre_editorial,anio_libro,nombre_autor,fecha_ini,fecha_fin)
+
             messagebox.showinfo('Mensaje', f'Libro registrado correctamente.')
 
-        boton1 = ttk.Button(tabulador, text='OK', command=enviar)
+        boton1 = ttk.Button(tabulador, text='OK', command = enviar)
         boton1.grid(row=8, column=0, columnspan=2)
 
     def tabulador2(self, tabulador):
@@ -80,36 +77,59 @@ class ComponentesVentana(tk.Tk):
         entrada1.grid(row=0, column=1, padx=5, pady=5)
 
         # botón para mostrar la fecha seleccionada
-        def mostrar_valor():
-            messagebox.showinfo('Memo Joto', 'Registro completado')
+        def buscar_valor():
+            isbn_buscar = entrada1.get()
+            records = self.conn.buscar_libro_por_isbn(isbn_buscar)
 
-        boton_mostrar = ttk.Button(tabulador, text='OK', command=mostrar_valor)
+            if records:
+                mensaje = "Libro encontrado:\n"
+                for row in records:
+                    mensaje += f"ISBN: {row[0]}\nTítulo: {row[1]}\nEditorial: {row[2]}\nAño: {row[3]}\nAutor: {row[4]}\n"
+                messagebox.showinfo('Busqueda', mensaje)
+            else:
+                messagebox.showinfo("Resultado de la búsqueda", "Libro no encontrado.")
+
+        boton_mostrar = ttk.Button(tabulador, text='OK', command = buscar_valor)
         boton_mostrar.grid(row=3, column=1)
 
     def tabulador3(self, tabulador):
-        etiqueta1 = ttk.Label(tabulador, text='ISBN:')
+        etiqueta1 = ttk.Label(tabulador, text='ISBN del libro:')
         etiqueta1.grid(row=0, column=0, sticky=tk.E)
         entrada1 = ttk.Entry(tabulador, width=30)
         entrada1.grid(row=0, column=1, padx=5, pady=5)
 
-        # botón para mostrar la fecha seleccionada
-        def mostrar_valor():
-            messagebox.showinfo('Memo Joto', 'Registro completado')
+        etiqueta2 = ttk.Label(tabulador, text='Titulo del libro a modificar:')
+        etiqueta2.grid(row=1, column=0, sticky=tk.E)
+        entrada2 = ttk.Entry(tabulador, width=30)
+        entrada2.grid(row=1, column=1, padx=5, pady=5)
 
-        boton_mostrar = ttk.Button(tabulador, text='OK', command=mostrar_valor)
+        # botón para mostrar la fecha seleccionada
+        def actualizar_valor():
+            buscar_isbn = entrada1.get()
+            nombre_libro = entrada2.get()
+
+            self.conn.actualizar_titulo(nombre_libro,buscar_isbn)
+
+            messagebox.showinfo('Actualización', f'Actualización completada')
+
+        boton_mostrar = ttk.Button(tabulador, text='OK', command = actualizar_valor)
         boton_mostrar.grid(row=3, column=1)
 
     def tabulador4(self, tabulador):
-        etiqueta1 = ttk.Label(tabulador, text='ISBN:')
+        etiqueta1 = ttk.Label(tabulador, text='ISBN del libro a eliminar:')
         etiqueta1.grid(row=0, column=0, sticky=tk.E)
         entrada1 = ttk.Entry(tabulador, width=30)
         entrada1.grid(row=0, column=1, padx=5, pady=5)
 
         # botón para mostrar la fecha seleccionada
-        def mostrar_valor():
-            messagebox.showinfo('Memo Joto', 'Registro completado')
+        def eliminar_valor():
+            eliminar_libro = entrada1.get()
+        
+            self.conn.eliminar_libro(eliminar_libro)
 
-        boton_mostrar = ttk.Button(tabulador, text='OK', command=mostrar_valor)
+            messagebox.showinfo('Eliminación', 'Eliminación completada')
+
+        boton_mostrar = ttk.Button(tabulador, text='OK', command = eliminar_valor)
         boton_mostrar.grid(row=3, column=1)
 
     def _crear_tabs(self):

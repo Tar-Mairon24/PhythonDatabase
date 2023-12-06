@@ -4,6 +4,7 @@ import sys
 sys.path.insert(0,'../src')
 from gui import ComponentesVentana
 from login_funcion import Login
+from conexion import Conexion
 
 
 
