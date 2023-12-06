@@ -38,14 +38,15 @@ class Conexion:
         valores_select = {'isbn':isbn}
         self.cursor.execute(SQL,valores_select)
         records = self.cursor.fetchall()
-        for rows in records:
+        return records
+        """ for rows in records:
             #print(x)
             isbn = rows[0]
             titulo = rows[1]
             nombre_ed = rows[2]
             anio_l = rows[3]
             nombre_aut = rows[4]
-        print(str(isbn) +' '+ titulo +' '+ nombre_ed+' '+str(anio_l)+' '+nombre_aut)
+        print(str(isbn) +' '+ titulo +' '+ nombre_ed+' '+str(anio_l)+' '+nombre_aut) """
 
     #Insertar libro
 
